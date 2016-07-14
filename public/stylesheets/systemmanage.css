@@ -1,0 +1,40 @@
+.ibox-content {
+  background-color: #ffffff;
+  color: inherit;
+  padding: 15px 20px 20px 20px;
+  border-color: #e7eaec;
+  border-image: none;
+  border-style: solid solid none;
+  border-width: 1px 0px;
+}
+.ibox-content {
+  clear: both;
+}
+.center{
+  margin-left:40%;
+}
+.center button{
+  margin-left:40px;
+}
+.icolor{
+  color:red;
+}
+#emitBtn{
+  position:absolute;
+  left:-1000px;
+}
+#usernameInquiry,#nameInquiry,#departInquiry,#id_cardInquiry{
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+#targetIdInquiry,#targetNameInquiry,#targetTypeInquiry,#mainDepartmentInquiry,#markManInquiry{
+  margin-top: 30px;
+  margin-left: 50px;
+}
+#TargetIdInquiry,#Name,#Type{
+  margin-top: 30px;
+}
+#inquiry{
+  margin-left: 50px;
+}

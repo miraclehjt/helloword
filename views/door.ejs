@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>党政监督绩效管理系统</title>
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/carousel.css" rel="stylesheet">
+    <style>
+      .pie{
+        display: none;
+      }
+      .main{
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+  <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/javascripts/carousel.js"></script>
+  <script type="text/javascript" src="/javascripts/echarts.js"></script>
+  <script>
+    var myChart;
+    // 路径配置
+    require.config({
+      paths: {
+        echarts: '/javascripts/dist'//http://echarts.baidu.com/build/dist
+      }
+    });
+    // 使用
+    require(
+            [
+              'echarts',
+              'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
+              'echarts/chart/line',
+              'echarts/chart/pie'
+            ],
+            function (ec) {
+              var i=0;
+              // 基于准备好的dom，初始化echarts图表
+              myChart = ec.init(document.getElementById('main'));
+              var myPieChart = ec.init(document.getElementById('pie'));
+              //设置数据
+              /*var option = {
+               //设置标题
+               title:{
+               text:'绩效指标完成百分比(%)',
+               subtext:'',
+               x: 'left',
+               y:'top'
+               },
+               //设置提示
+               tooltip: {
+               show: true
+               },
+               //设置图例
+               legend: {
+               x: 'left',
+               y:'bottom',
+               data:['钢产量','绿化覆盖率']
+
+               },
+               //工具箱，每个图表最多仅有一个工具箱
+               toolbox: {
+               //显示策略，可选为：true（显示） | false（隐藏），默认值为false
+               show: true,
+               //启用功能，目前支持feature，工具箱自定义功能回调处理
+               feature: {
+               //辅助线标志
+               mark: {show: true},
+               //dataZoom，框选区域缩放，自动与存在的dataZoom控件同步，分别是启用，缩放后退
+               dataZoom: {
+               show: true,
+               title: {
+               dataZoom: '区域缩放',
+               dataZoomReset: '区域缩放后退'
+               }
+               },
+               //数据视图，打开数据视图，可设置更多属性,readOnly 默认数据视图为只读(即值为true)，可指定readOnly为false打开编辑功能
+               dataView: {show: true, readOnly: true},
+               //magicType，动态类型切换，支持直角系下的折线图、柱状图、堆积、平铺转换
+               magicType: {show: true, type: ['line', 'bar']},
+               //restore，还原，复位原始图表
+               restore: {show: true},
+               //saveAsImage，保存图片（IE8-不支持）,图片类型默认为'png'
+               saveAsImage: {show: true}
+               }
+               },
+               //是否启用拖拽重计算特性，默认关闭(即值为false)
+               calculable: true,
+               //设置坐标轴
+               xAxis : [
+               {
+               type : 'category',
+               data: [""]
+               }
+               ],
+               yAxis : [
+               {
+               type : 'value',
+               //分隔区域，默认不显示
+               // splitArea: {show: true}
+               }
+               ],
+               //设置数据
+               series : [
+               //条形图
+               {
+               "name":"钢产量",
+               "type":"bar",
+               data: [100],
+               },
+               {
+               "name":"召开政协会议",
+               "type":"bar",
+               data: [0]
+               },
+               {
+               "name":"住房公积金比率",
+               "type":"bar",
+               data: [34]
+               },
+
+               {
+               "name":"党政检查",
+               "type":"bar",
+               data: [100]
+               },
+               {
+               "name":"发展团员",
+               "type":"bar",
+               data: [68]
+               },
+               {
+               "name":"妇联活动",
+               "type":"bar",
+               data: [78]
+               },
+               {
+               "name":"廉政检查",
+               "type":"bar",
+               data: [98]
+               },
+               {
+               "name":"案件审判",
+               "type":"bar",
+               data: [85]
+               },
+               {
+               "name":"人大会议",
+               "type":"bar",
+               data: [95]
+               },
+
+               ]
+               };*/
+              var option = {
+                //设置标题
+                title:{
+                  text:'指标完成进度（%）',
+                  subtext:''
+                },
+                //设置提示
+                tooltip: {
+                  show: true
+                },
+                //工具箱，每个图表最多仅有一个工具箱
+                toolbox: {
+                  //显示策略，可选为：true（显示） | false（隐藏），默认值为false
+                  show: true,
+                  //启用功能，目前支持feature，工具箱自定义功能回调处理
+                  feature: {
+                    //辅助线标志
+                    mark: {show: true},
+                    //dataZoom，框选区域缩放，自动与存在的dataZoom控件同步，分别是启用，缩放后退
+                    dataZoom: {
+                      show: true,
+                      title: {
+                        dataZoom: '区域缩放',
+                        dataZoomReset: '区域缩放后退'
+                      }
+                    },
+                    //数据视图，打开数据视图，可设置更多属性,readOnly 默认数据视图为只读(即值为true)，可指定readOnly为false打开编辑功能
+                    dataView: {show: true, readOnly: true},
+                    //magicType，动态类型切换，支持直角系下的折线图、柱状图、堆积、平铺转换
+                    magicType: {show: true, type: ['line', 'bar']},
+                    //restore，还原，复位原始图表
+                    restore: {show: true},
+                    //saveAsImage，保存图片（IE8-不支持）,图片类型默认为'png'
+                    saveAsImage: {show: true}
+                  }
+                },
+                //是否启用拖拽重计算特性，默认关闭(即值为false)
+                calculable: true,
+                //设置图例
+                legend: {
+                  data:['百分比']
+                },
+                //设置坐标轴
+                xAxis : [
+                  {
+                    type : 'category',
+                    data : [""]
+                  }
+                ],
+                yAxis : [
+                  {
+                    type : 'value'
+                  }
+                ],
+                //设置数据
+                series : [
+                  //条形图
+                  {
+                    "name":"百分比",
+                    "type":"bar",
+                    "data":[]
+                  },
+                  //折线图
+                  {
+                    "name":"百分比",
+                    "type":"line",
+                    "data":[],
+                    //绘制平均线
+                    markLine : {
+                      data : [
+                        {type : 'average', name: '平均值'}
+                      ]
+                    },
+                    //绘制最高最低点
+                    markPoint : {
+                      data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                      ]
+                    }
+                  }
+                ]
+              };
+              var pieoption = {
+                title : {
+                  text: '机关部门负责的指标数及比例',
+                  subtext: '',
+                  x:'center'
+                },
+                tooltip : {
+                  trigger: 'item',
+                  formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                  orient: 'vertical',
+                  x: 'left',
+                  y:'center',
+                  data: ['党的机关','人大机关','行政机关','政协机关','审判机关','检察机关','共青团','妇联']
+                },
+                toolbox: {
+                  show : true,
+                  feature : {
+                    mark : {show: false},
+                    dataView : {show: true, readOnly: true},
+                    magicType : {
+                      show: false,
+                      type: ['pie', 'funnel'],
+                      option: {
+                        funnel: {
+                          x: '25%',
+                          width: '50%',
+                          funnelAlign: 'left',
+                          max: 1548
+                        }
+                      }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                  }
+                },
+                calculable : true,
+                series : [
+                  {
+                    name: '机关部门',
+                    type: 'pie',
+                    radius : '60%',
+                    center: ['50%', '60%'],
+                    data:[
+                      {value:'<%=dang %>', name:'党的机关'},//获取后台render的值，也可以用《%=xing%》到ejs里，然后用jquery从input中取值
+                      {value:'<%=ren %>' , name:'人大机关'},
+                      {value:'<%=xing %>' , name:'行政机关'},
+                      {value:'<%=zheng %>' , name:'政协机关'},
+                      {value:'<%=shen %>' , name:'审判机关'},
+                      {value:'<%=jian %>', name:'检察机关'},
+                      {value:'<%=gong %>' , name:'共青团'},
+                      {value:'<%=fu %>' , name:'妇联'}
+                    ],
+                    itemStyle: {
+                      emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                      }
+                    }
+                  }
+                ]//series
+              };
+              // 为echarts对象加载数据
+              myChart.setOption(option);
+              myPieChart.setOption(pieoption);
+              myChart.hideLoading();
+              showData();
+            }
+    );
+    function showData() {
+      var legendName='<%=legendname%>'.split(',');
+      var percent='<%=percent%>'.split(',');//字符串数组
+      var data=[];
+      for(var i=0;i<percent.length;i++)
+      {
+        data[i]=parseInt(percent[i]);//字符串数组转int
+      }
+      console.log(percent);
+      console.log(data);
+      var options = myChart.getOption();
+      options.xAxis[0].data=legendName;
+      options.series[0].data=data;
+      options.series[1].data=data;
+      myChart.hideLoading();
+      myChart.setOption(options);
+    }
+
+  </script>
+    <div class="navbar-wrapper">
+      <div class="container">
+        <h1 style="text-align: center;margin-top: 100px;color: #0A0808;">党政监督绩效管理系统</h1>
+      </div>
+    </div>
+
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <img class="first-slide" src="/images/backgrounds/1.jpg" alt="">
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>透明化的信息</h1>
+                <p><a class="btn btn-lg btn-primary" href="/login" role="button">马上登录</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <img class="second-slide" src="/images/backgrounds/2.jpg" alt="">
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>公开化的政务</h1>
+                <p><a class="btn btn-lg btn-primary" href="/login" role="button">马上登录</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <img class="third-slide" src="/images/backgrounds/3.jpg" alt="Third slide">
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>效率化的监督</h1>
+                <p><a class="btn btn-lg btn-primary" href="/login" role="button">马上登录</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">上一页</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">下一页</span>
+        </a>
+      </div><!-- /.carousel -->
+    <!-- Carousel
+    ================================================== -->
+
+    <div class="container marketing">
+      <div style="margin-top: -90px;">
+        <div class="row">
+          <div class="col-lg-4">
+            <img class="img-circle" src="/images/backgrounds/4.jpg" alt="" width="140" height="140">
+            <h2>绩效展示</h2>
+            <p></p>
+            <p><button class="btn btn-info" id="showTarget">详 情 &raquo;</button></p>
+          </div>
+          <div class="col-lg-4">
+            <img class="img-circle" src="/images/backgrounds/5.jpg" alt="" width="140" height="140">
+            <h2>进度展示</h2>
+            <p>
+              <button class="btn btn-success" id="showScedule">详 情 &raquo;</button>
+            </p>
+          </div>
+          <div class="col-lg-4">
+            <img class="img-circle" src="/images/backgrounds/6.jpg" alt="" width="140" height="140">
+            <h2>评分展示</h2>
+            <p></p>
+            <p><a class="btn btn-danger" href="/login" role="button">更 多 &raquo;</a></p>
+          </div>
+        </div><!-- /.row -->
+      </div>
+      <!-- Three columns of text below the carousel -->
+     <div class="row">
+       <div class="col-lg-1"></div>
+        <div class="col-lg-11">
+          <div>
+            <div role="tabpanel" class="tab-pane" >
+              <div id="pie" class="pie" style="  width:1000px;height:500px;"></div>
+            </div>
+          </div>
+        </div>
+     </div><!-- /.row -->
+      <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-11">
+          <div>
+            <div role="tabpanel" class="tab-pane active">
+              <div id="main" style="width:1000px;height:500px" class="main"></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  <script>
+     $(function () {
+       $("#showTarget").click(function () {
+         $("#pie").removeClass("pie");
+       });
+       $("#showScedule").click(function () {
+         $("#main").removeClass("main");
+       });
+     });
+  </script>
+  </body>
+</html>

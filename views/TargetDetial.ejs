@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>指标数据详细信息</title>
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.peity.min.js"></script>
+    <script type="text/javascript">
+        jQuery(function(){
+            $("span.pie").peity("pie", {
+                fill: ['#1ab394', '#d7d7d7', '#ffffff'],diameter:200
+            })
+        })
+    </script>
+
+    <div class="alert alert-info" role="alert">
+        <h2>指标数据详细信息</h2>
+    </div>
+    <div> <input type="text" name="id" class="form-control" placeholder="id"  id="id" style="display: none" value=<%=target._id%>></div>
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">指标信息</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">数据信息</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            </td>
+                            <td><label>指 标 号：</label></td>
+                            <td> <div>
+                                    <input type="text" name="targetId" class="form-control" placeholder="指标号" readonly="readonly" id="targetId" value=<%=target.targetId%>>
+                                 </div>
+                            </td>
+                            <td><label>指 标 名 称：</label></td>
+                            <td>
+                                <div>
+                                    <input type="text" name="targetName" class="form-control" placeholder="指 标 名 称" readonly="readonly" id="targetName" value=<%=target.targetName%>>
+                                </div>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td> <label>指 标 类 型：</label></td>
+                            <td>  <div>
+                                    <% var selectnation1=(target.targetType=="省级指标")?"selected='selected'":"";
+                                    var selectnation2=(target.targetType=="市级指标")?"selected='selected'":"";
+                                    var selectnation3=(target.targetType=="区级指标")?"selected='selected'":"";
+                                    var selectnation4=(target.targetType=="单位指标")?"selected='selected'":"";
+                                    %>
+                                    <select class="form-control" name="targetType" id="targetType" readonly="readonly">
+                                        <option <%=selectnation1%>>省级指标</option>
+                                        <option <%=selectnation2%>>市级指标</option>
+                                        <option <%=selectnation3%>>区级指标</option>
+                                        <option <%=selectnation4%>>单位指标</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td><label>计 量 单 位：</label></td>
+                            <td> <div>
+                                    <input type="text" name="unit" class="form-control" placeholder="计量单位" readonly="readonly" id="unit" value=<%=target.unit%>>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <label>主 要 责 任 机 关：</label></td>
+                            <td><div>
+                                    <% var select1=(target.mainDepartment=="党的机关")?"selected='selected'":"";
+                                    var select2=(target.mainDepartment=="人大机关")?"selected='selected'":"";
+                                    var select3=(target.mainDepartment=="行政机关")?"selected='selected'":"";
+                                    var select4=(target.mainDepartment=="政协机关")?"selected='selected'":"";
+                                    var select5=(target.mainDepartment=="审判机关")?"selected='selected'":"";
+                                    var select6=(target.mainDepartment=="检察机关")?"selected='selected'":"";
+                                    var select7=(target.mainDepartment=="共青团")?"selected='selected'":"";
+                                    var select8=(target.mainDepartment=="妇联")?"selected='selected'":"";
+                                    %>
+                                    <select class="form-control" name="mainDepartment" readonly="readonly" id="mainDepartment">
+                                        <option <%=select1%>>党的机关</option>
+                                        <option <%=select2%>>人大机关</option>
+                                        <option <%=select3%>>行政机关</option>
+                                        <option <%=select4%>>政协机关</option>
+                                        <option <%=select5%>>审判机关</option>
+                                        <option <%=select6%>>检察机关</option>
+                                        <option <%=select7%>>共青团</option>
+                                        <option <%=select8%>>妇联</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td><label>相 关 责 任 机 关：</label></td>
+                            <td><div>
+                                    <% var select1=(target.relatedDepartment=="党的机关")?"selected='selected'":"";
+                                    var select2=(target.relatedDepartment=="人大机关")?"selected='selected'":"";
+                                    var select3=(target.relatedDepartment=="行政机关")?"selected='selected'":"";
+                                    var select4=(target.relatedDepartment=="政协机关")?"selected='selected'":"";
+                                    var select5=(target.relatedDepartment=="审判机关")?"selected='selected'":"";
+                                    var select6=(target.relatedDepartment=="检察机关")?"selected='selected'":"";
+                                    var select7=(target.relatedDepartment=="共青团")?"selected='selected'":"";
+                                    var select8=(target.relatedDepartment=="妇联")?"selected='selected'":"";
+                                    %>
+                                    <select class="form-control" name="mainDepartment" readonly="readonly" id="relatedDepartment">
+                                        <option <%=select1%>>党的机关</option>
+                                        <option <%=select2%>>人大机关</option>
+                                        <option <%=select3%>>行政机关</option>
+                                        <option <%=select4%>>政协机关</option>
+                                        <option <%=select5%>>审判机关</option>
+                                        <option <%=select6%>>检察机关</option>
+                                        <option <%=select7%>>共青团</option>
+                                        <option <%=select8%>>妇联</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                       <!-- <tr>
+                            <td> <label>合 格 值：<i class="icolor">*</i></label></td>
+                            <td> <div>
+                                    <input type="text" name="acceptValue" class="form-control" placeholder="合格值" id="acceptValue" value=<%=target.acceptValue%>>
+                                </div>
+                            </td>
+                            <td> <label>挑 战 值：<i class="icolor">*</i></label></td>
+                            <td><div>
+                                    <input type="text" name="challengeValue" class="form-control" placeholder="挑战值"  id="challengeValue" value=<%=target.challengeValue%>>
+                                </div>
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <td> <label>规 划 开 始 时 间：</label></td>
+                            <td><div>
+                                    <input type="date" name="startTime" class="form-control" placeholder="规划开始时间" id="startTime" readonly="readonly" value=<%=target.startTime%>>
+                                </div>
+                            </td>
+                            <td><label>规 划 结 束 时 间：</label></td>
+                            <td> <div>
+                                    <input type="date" name="endTime" class="form-control" placeholder="规划结束时间" id="endTime" readonly="readonly" value=<%=target.endTime%>>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <label>实 际 完 成 时 间：</label></td>
+                            <td><div>
+                                    <input type="date" name="reallyTime" class="form-control" placeholder="实 际 完 成 时 间" id="reallyTime" readonly="readonly" value=<%=target.reallyTime%>>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <thead>
+                        <% var a=target.acceptValue%>
+                        <% var b=target.achieveValue%>
+                        <% var c=target.challengeValue%>
+                        <% var rate1=a/c*100;%>
+                        <% var rate2=b/c*100;%>
+                        <% var dif;//合格值和完成值的差值
+                        var percent;//完成百分比
+                        var overValue;//超出值:b-a
+                        var overcount=c-a;//超出总值:c-a
+                        if(b>=a){
+                            overValue=b-a;
+                            a=1;
+                            b=1;
+                            dif=0;
+                        }
+                        else{
+                            overValue=0;
+                            dif=a-b;
+                        }
+                        percent=Math.round(b/a*100);
+                        overpercent=Math.round(overValue/overcount*100);
+                        %>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="col-xs-2"> <label>合 格 值：</label></td>
+                            <td class="col-xs-7">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%=rate1%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=rate1%>%">
+                                        <%=target.acceptValue%>&nbsp;<%=target.unit%>
+                                    </div>
+                                </div>
+                            </td>
+                            <td rowspan="4" style="padding-left: 3%"><span class="pie"><%=b %>,<%=dif%></span></td>
+                        </tr>
+                        <tr>
+                            <td> <label>挑 战 值：</label></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                        <%=target.challengeValue%>&nbsp;<%=target.unit%>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <label>完 成 值：</label></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%=rate2%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=rate2%>%">
+                                        <%=target.achieveValue%>&nbsp;<%=target.unit%>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <label>完 成 进 度：</label></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%=percent%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=percent%>%">
+                                        <%=percent%>&nbsp;%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>

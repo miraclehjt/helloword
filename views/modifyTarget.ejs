@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改指标信息</title>
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <h2>修改指标信息</h2>
+    <div class="alert alert-warning" role="alert">
+        <span>修改信息时请注意：<i class="icolor">*</i>  为必填内容!</span><span id="check-block" style="color: red;">&nbsp;</span>
+    </div>
+    <div> <input type="text" name="id" class="form-control" placeholder="id"  id="id" style="display: none" value=<%=target._id%>></div>
+    <div> <input type="text" name="id" class="form-control" placeholder="old_targetId"  id="old_targetId" style="display: none" value=<%=target.targetId%>></div>
+    <div class="ibox-content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            </td>
+            <td><label>指 标 号：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="targetId" class="form-control" placeholder="指标号"  id="targetId" value=<%=target.targetId%>>
+                </div>
+            </td>
+            <td><label>指 标 名 称：<i class="icolor">*</i></label></td>
+            <td>
+                <div>
+                    <input type="text" name="targetName" class="form-control" placeholder="指 标 名 称" id="targetName" value=<%=target.targetName%>>
+                </div>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td> <label>指 标 类 型：<i class="icolor">*</i></label></td>
+            <td>  <div>
+                    <% var selectnation1=(target.targetType=="省级指标")?"selected='selected'":"";
+                       var selectnation2=(target.targetType=="市级指标")?"selected='selected'":"";
+                       var selectnation3=(target.targetType=="区级指标")?"selected='selected'":"";
+                       var selectnation4=(target.targetType=="单位指标")?"selected='selected'":"";
+                    %>
+                    <select class="form-control" name="targetType" id="targetType">
+                        <option <%=selectnation1%>>省级指标</option>
+                        <option <%=selectnation2%>>市级指标</option>
+                        <option <%=selectnation3%>>区级指标</option>
+                        <option <%=selectnation4%>>单位指标</option>
+                    </select>
+                </div>
+            </td>
+            <td><label>计 量 单 位：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="unit" class="form-control" placeholder="计量单位" id="unit" value=<%=target.unit%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>合 格 值：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="acceptValue" class="form-control" placeholder="合格值" id="acceptValue" value=<%=target.acceptValue%>>
+                </div>
+            </td>
+            <td> <label>挑 战 值：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="text" name="challengeValue" class="form-control" placeholder="挑战值"  id="challengeValue" value=<%=target.challengeValue%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>主 要 责 任 机 关：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <% var select1=(target.mainDepartment=="党的机关")?"selected='selected'":"";
+                       var select2=(target.mainDepartment=="人大机关")?"selected='selected'":"";
+                       var select3=(target.mainDepartment=="行政机关")?"selected='selected'":"";
+                       var select4=(target.mainDepartment=="政协机关")?"selected='selected'":"";
+                       var select5=(target.mainDepartment=="审判机关")?"selected='selected'":"";
+                       var select6=(target.mainDepartment=="检察机关")?"selected='selected'":"";
+                       var select7=(target.mainDepartment=="共青团")?"selected='selected'":"";
+                       var select8=(target.mainDepartment=="妇联")?"selected='selected'":"";
+                    %>
+                    <select class="form-control" name="mainDepartment" id="mainDepartment">
+                        <option <%=select1%>>党的机关</option>
+                        <option <%=select2%>>人大机关</option>
+                        <option <%=select3%>>行政机关</option>
+                        <option <%=select4%>>政协机关</option>
+                        <option <%=select5%>>审判机关</option>
+                        <option <%=select6%>>检察机关</option>
+                        <option <%=select7%>>共青团</option>
+                        <option <%=select8%>>妇联</option>
+                    </select>
+                </div>
+            </td>
+            <td><label>相 关 责 任 机 关：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <% var select1=(target.relatedDepartment=="党的机关")?"selected='selected'":"";
+                    var select2=(target.relatedDepartment=="人大机关")?"selected='selected'":"";
+                    var select3=(target.relatedDepartment=="行政机关")?"selected='selected'":"";
+                    var select4=(target.relatedDepartment=="政协机关")?"selected='selected'":"";
+                    var select5=(target.relatedDepartment=="审判机关")?"selected='selected'":"";
+                    var select6=(target.relatedDepartment=="检察机关")?"selected='selected'":"";
+                    var select7=(target.relatedDepartment=="共青团")?"selected='selected'":"";
+                    var select8=(target.relatedDepartment=="妇联")?"selected='selected'":"";
+                    %>
+                    <select class="form-control" name="mainDepartment" id="relatedDepartment">
+                        <option <%=select1%>>党的机关</option>
+                        <option <%=select2%>>人大机关</option>
+                        <option <%=select3%>>行政机关</option>
+                        <option <%=select4%>>政协机关</option>
+                        <option <%=select5%>>审判机关</option>
+                        <option <%=select6%>>检察机关</option>
+                        <option <%=select7%>>共青团</option>
+                        <option <%=select8%>>妇联</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>规 划 开 始 时 间：</label></td>
+            <td><div>
+                    <input type="date" name="startTime" class="form-control" placeholder="规划开始时间" id="startTime" value=<%=target.startTime%>>
+                </div>
+            </td>
+            <td><label>规 划 结 束 时 间：</label></td>
+            <td> <div>
+                    <input type="date" name="endTime" class="form-control" placeholder="规划结束时间" id="endTime" value=<%=target.endTime%>>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="center">
+            <button type="button" class="btn btn-info" id="save">修改</button>
+            <button type="button" class="btn btn-info" id="cancel">取消</button>
+        </div>
+        <div class="modal fade" id="emitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style=" margin-top: 200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">修改指标</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3> 指标修改成功！</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" style="line-height:20px;" href="/targetlistpage" >确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="emitBtn" data-toggle="modal"  data-target="#emitModal">emit</button>
+</div>
+ <script>
+     var state="0";
+        $(function(){
+            $("#save").click(function(){
+                var id=$("#id").val();
+                var old_targetId=$("#old_targetId").val();
+                var targetId = $("#targetId").val();
+                var targetName=$("#targetName").val();
+                var targetType = $("#targetType").val();
+                var unit = $("#unit").val();
+                var acceptValue = $("#acceptValue").val();
+                var challengeValue = $("#challengeValue").val();
+                var mainDepartment = $("#mainDepartment option:selected").val();
+                var relatedDepartment = $("#relatedDepartment option:selected").val();
+                var startTime = $("#startTime").val();
+                var endTime = $("#endTime").val();
+                if(targetId==old_targetId){//当修改的targetId与原来的targetId相同时改变状态
+                    state="1";
+                }
+                if(targetName==''||targetType==''||unit==''||targetId==''||acceptValue==''||challengeValue==''||mainDepartment==''||startTime==''||endTime==''){
+                    $("#check-block").text("必填信息不能为空！");
+                }
+                else if(state=="0"){
+                    $("#check-block").text("指标号已存在!");
+                }
+                else {
+                    var data = {
+                        "_id":id,
+                        "targetId":targetId,
+                        "targetName":targetName,
+                        "targetType":targetType,
+                        "unit":unit,
+                        "acceptValue":acceptValue,
+                        "challengeValue":challengeValue,
+                        "mainDepartment":mainDepartment,
+                        "relatedDepartment":relatedDepartment,
+                        "startTime":startTime,
+                        "endTime":endTime
+                    };
+                    $.ajax({
+                        url: '/modifyTarget',
+                        type: 'post',
+                        data: data,
+                        success: function(data,status){
+                            if(status == 'success'){
+                                $("#check-block").text("指标修改成功！");
+                                $('#emitBtn').trigger('click');
+                            }
+                        },
+                        error: function(data,err){
+                            $("#check-block").text("指标修改失败！");
+                        }
+                    });
+                }
+            });
+        });
+        $("#targetId").blur(function(){
+            var targetId = $("#targetId").val();
+            var old_targetId=$("#old_targetId").val();//原来的targetId
+            var data = {'targetId':targetId};
+            if(targetId==old_targetId){
+                state="1";
+                $("#check-block").text("");
+            }
+            if(targetId!=old_targetId){//只有当修改的targetId与原来的targetId不同时才进行检查
+                $.ajax({
+                    url:'/checktargetId',
+                    type:'post',
+                    data:data,
+                    success:function(data,status){
+                        if(status == 'success'){
+                            $("#check-block").text("");
+                            state="1";
+                        }
+                    },
+                    error:function(data,err){
+                        $("#check-block").text("指标号已存在！");
+                        state="0";
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>

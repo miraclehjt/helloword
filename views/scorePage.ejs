@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>录入职工评分</title>
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <h2>职工评分</h2>
+    <div class="alert alert-warning" role="alert">
+        <span>评分时请注意：<i class="icolor">*</i>  为必填内容!</span><span id="check-block" style="color: red;">&nbsp;</span>
+    </div>
+    <div class="alert alert-info" role="alert">
+        <span>说明：基础分，指标分，综合加减分都按加权后分数计算，各部分总分分别为35，45，20，即：总分=基础分+指标分+综合加减分。</span>
+    </div>
+    <div class="ibox-content">
+    <table class="table table-bordered">
+        <thead></thead>
+        <tbody>
+        <tr>
+            <td><label>职 工 工 号：<i class="icolor">*</i></label></td>
+            <td>
+                <div >
+                    <input type="text" name="name" class="form-control " readonly="readonly" placeholder="职工工号" id="username" value=<%=username%>>
+                </div>
+            </td>
+            <td><label>基 础 得 分：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="baseScore" class="form-control" placeholder="基 础 得 分"  id="baseScore" >
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>指 标 得 分：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="text" name="targetScore" class="form-control" placeholder="指标得分" id="targetScore">
+                </div>
+            </td>
+            <td> <label>综 合 加 减 分：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="text" name="sumScore" class="form-control" placeholder="综 合 加 减 分" id="sumScore">
+                </div>
+            </td>
+        </tr>
+        <tr >
+            <td style="vertical-align: middle"> <label>综合加减分原因：</label></td>
+            <td colspan="3"><div>
+                    <select class="form-control" name="reason" id="reason">
+                        <option></option>
+                        <option>工作受到领导表彰</option>
+                        <option>完成指标突出</option>
+                        <option>工作极其负责</option>
+                        <option>工作态度不负责</option>
+                        <option>出勤率太低</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="center">
+            <button type="button" class="btn btn-info" id="enterScore">录入</button>
+            <button type="button" class="btn btn-info" id="cancel">取消</button>
+        </div>
+        <div class="modal fade" id="emitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style=" margin-top: 200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">录入评分</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3> 录入成功！</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" style="line-height:20px;" href="/scoreListpage" >确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="emitBtn" data-toggle="modal"  data-target="#emitModal">emit</button>
+</div>
+ <script>
+        $(function(){
+            $("#enterScore").click(function(){
+                var username = $("#username").val();
+                var baseScore=$("#baseScore").val();
+                var targetScore= $("#targetScore").val();
+                var sumScore = $("#sumScore").val();
+                var reason = $("#reason option:selected").val();
+                if(username==''||baseScore==''||targetScore==''||sumScore==''){
+                    $("#check-block").text("必填信息不能为空！");
+                }
+                else if((sumScore!=0)&&(reason=='')){
+                    $("#check-block").text("请输入加分原因");
+                }
+                else {
+                    var data = {
+                        "username":username,
+                        "baseScore":baseScore,
+                        "targetScore":targetScore,
+                        "sumScore":sumScore,
+                        "reason":reason
+                    };
+                    $.ajax({
+                        url: '/enterScore',
+                        type: 'post',
+                        data: data,
+                        success: function(data,status){
+                            if(status == 'success'){
+                                $("#check-block").text("录入评分成功！");
+                                $('#emitBtn').trigger('click');
+                            }
+                        },
+                        error: function(data,err){
+                            $("#check-block").text("录入评分失败！");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

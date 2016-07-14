@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>添加用户</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <h2>添加用户</h2>
+    <div class="alert alert-warning" role="alert">
+        <span>请填写以下信息,<i class="icolor">*</i>  为必填内容!</span><span id="check-block" style="color: red;">&nbsp;</span>
+    </div>
+    <div class="ibox-content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td><label>工号：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="username" class="form-control" placeholder="工号" id="username">
+                </div>
+            </td>
+            <td><label>姓名：<i class="icolor">*</i></label></td>
+            <td>
+                <div>
+                    <input type="text" name="name" class="form-control" placeholder="姓名" id="name">
+                </div>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td> <label>性别：<i class="icolor">*</i></label></td>
+            <td> <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" checked="checked" value=0  name="sex">男</label>
+                    <label class="radio-inline">
+                        <input type="radio" value=1  name="sex">女</label>
+                </div>
+            </td>
+            <td> <label>出生年月：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="date" name="born_date" class="form-control" placeholder="出生年月" id="born_date">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>民族：<i class="icolor">*</i></label></td>
+            <td>  <div>
+                    <select class="form-control" name="nation" id="nation">
+                        <option>汉族</option>
+                        <option>壮族</option>
+                        <option>回族</option>
+                        <option>藏族</option>
+                        <option>蒙古族</option>
+                        <option>维吾尔族</option>
+                        <option>其他民族</option>
+                    </select>
+                </div>
+            </td>
+            <td><label>政治面貌：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <select class="form-control" name="political_status" id="political_status">
+                        <option>中共党员</option>
+                        <option>共青团员</option>
+                        <option>民主党派</option>
+                        <option>群众</option>
+                    </select>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td> <label>籍贯：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="place" class="form-control" placeholder="籍贯" id="place">
+                </div>
+            </td>
+            <td> <label>身份证号：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="text" name="id_card" class="form-control" placeholder="身份证" id="id_card">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>所属机关：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <select class="form-control" name="department" id="department">
+                        <option>党的机关</option>
+                        <option>人大机关</option>
+                        <option>行政机关</option>
+                        <option>政协机关</option>
+                        <option>审判机关</option>
+                        <option>检察机关</option>
+                        <option>共青团</option>
+                        <option>妇联</option>
+                    </select>
+                </div>
+            </td>
+            <td><label>用户权限：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <select class="form-control" name="permission" id="permission">
+                        <option>管理员</option>
+                        <option>部门领导</option>
+                        <option>普通职工</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>电话号码：</label></td>
+            <td><div>
+                    <input type="text" name="tel" class="form-control" placeholder="电话号码" id="tel">
+                </div>
+            </td>
+            <td><label>职务：</label></td>
+            <td> <div>
+                    <input type="text" name="position" class="form-control" placeholder="职务" id="position">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="center">
+            <button type="button" class="btn btn-info" id="add">添加</button>
+            <button type="button" class="btn btn-info" id="cancel">取消</button>
+        </div>
+        <div class="modal fade" id="emitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style=" margin-top: 200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3> 用户添加成功！</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" style="line-height:20px;" href="/adduserpage" >确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="emitBtn" data-toggle="modal"  data-target="#emitModal">emit</button>
+
+   </div>
+    <script>
+        var state="0";
+        $(function(){
+            $("#add").click(function(){
+                var username = $("#username").val();
+                var password="000000";
+                var name = $("#name").val();
+                var sex= $("input[name='sex']:checked").val();
+                var born_date = $("#born_date").val();
+                var nation = $("#nation option:selected").val();
+                var political_status = $("#political_status option:selected").val();
+                var place = $("#place").val();
+                var id_card = $("#id_card").val();
+                var department = $("#department option:selected").val();
+                var permission = $("#permission option:selected").val();
+                var tel = $("#tel").val();
+                var position = $("#position").val();
+                var check=$("#check-block").val();
+                if(username==''||name==''||sex==''||born_date==''||nation==''||political_status==''||place==''||id_card==''||department==''||permission==''){
+                    $("#check-block").text("必填信息不能为空！");
+                }
+                else if(id_card.length!=18){
+                    $("#check-block").text("请输入正确的身份证号码");
+                }else if(state=="0"){
+                    $("#check-block").text("工号已存在！");
+                }
+                else {
+                    var data = {"username":username,
+                                 "password":password,
+                                 "name":name,
+                                 "sex":sex,
+                                 "born_date":born_date,
+                                 "nation":nation,
+                                 "political_status":political_status,
+                                 "place":place,
+                                 "id_card":id_card,
+                                 "department":department,
+                                 "permission":permission,
+                                 "tel":tel,
+                                 "position":position
+                    };
+                    $.ajax({
+                        url: '/adduser',
+                        type: 'post',
+                        data: data,
+                        success: function(data,status){
+                            if(status == 'success'){
+                                $("#check-block").text("用户添加成功！");
+                                $('#emitBtn').trigger('click');
+                            }
+
+                        },
+                        error: function(data,err){
+                            $("#check-block").text("用户添加失败！");
+                        }
+                    });
+                }
+            });
+        });
+        $("#username").blur(function(){
+            var username = $("#username").val();
+            var data = {'username':username};
+            $.ajax({
+                url:'/checkusername',
+                type:'post',
+                data:data,
+                success:function(data,status){
+                    if(status == 'success'){
+                        $("#check-block").text("");
+                        state="1";
+                    }
+                },
+                error:function(data,err){
+                    $("#check-block").text("工号已存在！");
+                     state="0";
+                }
+            });
+        });
+        $("#id_card").blur(function(){
+            var id_card = $("#id_card").val();
+            if(id_card.length!=18){
+                $("#check-block").text("请输入正确的身份证号码");
+            }
+            else{
+                $("#check-block").text(" ");
+            }
+        });
+
+        $("#cancel").click(function () {
+            $("input").val('');
+        });
+    </script>
+</body>
+</html>

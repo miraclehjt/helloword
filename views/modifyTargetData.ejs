@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改指标数据</title>
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <h2>修改指标数据</h2>
+    <div class="alert alert-warning" role="alert">
+        <span>修改指标时请注意：<i class="icolor">*</i>  为必填内容!</span><span id="check-block" style="color: red;">&nbsp;</span>
+    </div>
+    <div> <input type="text" name="id" class="form-control" placeholder="id"  id="id" style="display: none" value=<%=target._id%>></div>
+    <div class="ibox-content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            </td>
+            <td><label>指 标 号：</label></td>
+            <td> <div>
+                    <input type="text" name="targetId" class="form-control" placeholder="指标号"  id="targetId" readonly="readonly" value=<%=target.targetId%>>
+                </div>
+            </td>
+            <td><label>指 标 名 称：</label></td>
+            <td>
+                <div>
+                    <input type="text" name="targetName" class="form-control" placeholder="指 标 名 称" id="targetName" readonly="readonly" value=<%=target.targetName%>>
+                </div>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            </td>
+            <td><label>计 量 单 位：</label></td>
+            <td> <div>
+                    <input type="text" name="unit" class="form-control" placeholder="计量单位" id="unit"  readonly="readonly" value=<%=target.unit%>>
+                </div>
+            </td>
+            <td> <label>挑 战 值：</label></td>
+            <td><div>
+                    <input type="text" name="challengeValue" class="form-control" placeholder="挑战值"  id="challengeValue" readonly="readonly" value=<%=target.challengeValue%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>合 格 值：</label></td>
+            <td> <div>
+                    <input type="text" name="acceptValue" class="form-control" placeholder="合格值" id="acceptValue" readonly="readonly" value=<%=target.acceptValue%>>
+                </div>
+            </td>
+            <td><label>规 划 结 束 时 间：</label></td>
+            <td> <div>
+                    <input type="date" name="endTime" class="form-control" placeholder="规划结束时间" readonly="readonly" id="endTime" value=<%=target.endTime%>>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td> <label>完 成 值：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="text" name="achieveValue" class="form-control" placeholder="完 成 值"  id="achieveValue" value=<%=target.achieveValue%>>
+                </div>
+            </td>
+            <td> <label>实 际 完 成 时 间：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="date" name="reallyTime" class="form-control" placeholder="实际完成时间" id="reallyTime" value=<%=target.reallyTime%>>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="center">
+            <button type="button" class="btn btn-info" id="modifyDate">修改</button>
+            <button type="button" class="btn btn-info" id="cancel">取消</button>
+        </div>
+        <div class="modal fade" id="emitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style=" margin-top: 200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">修改指标数据</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3> 数据修改成功！</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" style="line-height:20px;" href="/showDataListpage" >确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="emitBtn" data-toggle="modal"  data-target="#emitModal">emit</button>
+</div>
+ <script>
+        $(function(){
+            $("#modifyDate").click(function(){
+                var id=$("#id").val();
+                var achieveValue=$("#achieveValue").val();
+                var reallyTime = $("#reallyTime").val();
+                if(achieveValue==''||reallyTime==''){
+                    $("#check-block").text("必填信息不能为空！");
+                }
+                else {
+                    var data = {
+                        "_id":id,
+                        "achieveValue":achieveValue,
+                        "reallyTime":reallyTime
+                    };
+                    $.ajax({
+                        url: '/modifyTargetData',
+                        type: 'post',
+                        data: data,
+                        success: function(data,status){
+                            if(status == 'success'){
+                                $("#check-block").text("指标数据修改成功！");
+                                $('#emitBtn').trigger('click');
+                            }
+                        },
+                        error: function(data,err){
+                            $("#check-block").text("指标数据修改失败！");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

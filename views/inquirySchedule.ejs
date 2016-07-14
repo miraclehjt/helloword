@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>完成进度查询</title>
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel="stylesheet" href="/stylesheets/dataTables.bootstrap.css" >
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.peity.min.js"></script>
+    <script src="/javascripts/jquery.metisMenu.js"></script>
+    <!-- Data Tables -->
+    <script src="/javascripts/jquery.dataTables.js"></script>
+    <script src="/javascripts/dataTables.bootstrap.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.dataTables-example').dataTable();
+        });
+    </script>
+    <script type="text/javascript">
+        jQuery(function(){
+            $("span.pie").peity("pie", {
+                fill: ['#1ab394', '#d7d7d7', '#ffffff']
+            })
+        })
+    </script>
+    <h2>完成进度查询</h2>
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#TargetIdInquiry" aria-controls="usernameInquiry" role="tab" data-toggle="tab">按指标号查询</a></li>
+            <li role="presentation"><a href="#Name" aria-controls="profile" role="tab" data-toggle="tab">按名称查询</a></li>
+            <li role="presentation"><a href="#Type" aria-controls="messages" role="tab" data-toggle="tab">按类型查询</a></li>
+        </ul>
+        <% var state=(state=="block")?'block':'none';%>
+        <% var len=(targetlist!=null)?targetlist.length:0;%>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="TargetIdInquiry">
+                <form class="form-inline" action="/inquiryScheduleByID" method="post">
+                    <div class="form-group">
+                        <input type="text" name="ID" class="form-control" id="ID" placeholder="请输入指标号!">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="inquiry">查询</button>
+                </form>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Name">
+                    <form class="form-inline" action="/inquiryScheduleByTargetName" method="post">
+                        <div class="form-group">
+                            <input type="text" name="targetName" class="form-control" id="targetName" placeholder="请指标名称!">
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="inquiry">查询</button>
+                    </form>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Type">
+                    <form class="form-inline" action="/inquiryScheduleByTargetType" method="post">
+                        <div class="form-group">
+                            <select class="form-control" name="targetType" id="targetType">
+                                <option>请 选 择 指 标！</option>
+                                <option>省级指标</option>
+                                <option>市级指标</option>
+                                <option>区级指标</option>
+                                <option>单位指标</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="inquiry">查询</button>
+                    </form>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;display: <%=state%>">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <!--<header class="panel-heading">-->
+                    <!--指标列表-->
+                    </header>
+                    <table class="table table-striped table-advance table-hover dataTables-example">
+                        <thead>
+                        <tr>
+                            <th><span>序 号</span></th>
+                            <th><span>指 标 号</span></th>
+                            <!--<th><span>指 标 名 称</span></th>-->
+                            <!--<th><span>指 标 类 型</span></th>-->
+                            <th><span>计 量 单 位</span> </th>
+                            <th><span>合 格 值</span></th>
+                            <th><span>挑 战 值</span></th>
+                            <th><span>完 成 值</span></th>
+                            <th><span>完 成 进 度</span></th>
+                            <th><span>完 成 比 率</span></th>
+                            <th><span>超 出 值</span></th>
+                            <th><span>超 出 比 率</span></th>
+                            <th><span>是 否 超 期</span></th>
+                            <!--<th><span>主要责任部门</span></th>-->
+                            <th><span>详 情</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(var i=0; i<len;i++){%>
+                        <% var a=targetlist[i].acceptValue%>
+                        <% var b=targetlist[i].achieveValue%>
+                        <% var c=targetlist[i].challengeValue%>
+                        <% var reallyTime=targetlist[i].reallyTime%>
+                        <% var endTime=targetlist[i].endTime%>
+                        <% var dif;//合格值和完成值的差值
+                            var percent;//完成百分比
+                            var overValue;//超出值:b-a
+                            var overcount=c-a;//超出总值:c-a
+                            if(b>=a){
+                                overValue=b-a;
+                                a=1;
+                                b=1;
+                                dif=0;
+                            }
+                            else{
+                                overValue=0;
+                                dif=a-b;
+                            }
+                            percent=Math.round(b/a*100);
+                            overpercent=Math.round(overValue/overcount*100);
+                        %>
+                        <%  function toDate(str){//字符-日期时间转换
+                            var sd=str.split("-");
+                            return new Date(sd[0],sd[1],sd[2]);
+                        }
+                            var d1=toDate(reallyTime);
+                            var d2=toDate(endTime);
+                            var e=(d1>d2)?"是":"否";//判断是否超期
+                        %>
+                        <tr>
+                            <td><span class="label label-success label-mini"><%= i+1 %></span></td>
+                            <td class="targetId"><%= targetlist[i].targetId %></td>
+                            <!-- <td><span><%= targetlist[i].targetName %></span></td>-->
+                            <!--<td><span><%= targetlist[i].targetType %></span></td>-->
+                            <td><span><%= targetlist[i].unit %></span></td>
+                            <td><span><%= targetlist[i].acceptValue %></span></td>
+                            <td><span><%= targetlist[i].challengeValue %></span></td>
+                            <td><span><%= targetlist[i].achieveValue %></span></td>
+                            <td><span class="pie"><%=b %>,<%=dif%></span></td>
+                            <td><%=percent %>%</td>
+                            <td><%=overValue %></td>
+                            <td><%=overpercent %>%</td>
+                            <td><span><%= e %></span></td>
+                            <!--<td><span><%= targetlist[i].mainDepartment %></span></td>-->
+                            <td>
+                                <a href="targetDetialpage/<%= targetlist[i]._id %>"  class="btn btn-success btn-xs"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+                            </td>
+                        </tr>
+                        <%}%>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

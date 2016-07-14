@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>党政监督绩效管理系统</title>
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+    <style type="text/css">
+        html{height: 100%;}
+        body{height: 100%;overflow:hidden;}
+        #box{min-height: 600px;height:100%;padding-right: 0px; padding-left: 0px;}
+        .navbar-header img{width: 40px;height: auto;margin-top: -10px;}
+        #frame{height: 88%;border: 0px;min-height: 250px;}
+        .content{scroll-x:none;height: 100%;}
+        .nav-pills li{width: 100%;margin-top: 5px;margin-bottom: 5px;}
+        .subnav{padding: 5px;border-radius: 2px;width: 100%;background-color: rgba(86,190,190,0.5);}    
+        .subnav+div{border:1px solid gray;padding: 0px;display: none;}
+        .subnav+div a{margin: 0px;padding: 2px;background: white;}
+        .subnav+div li{width: 100%;height: 20px;}
+        #headingOne,#headingTwo,#headingThree,#headingJQuery,#headingBootstrap,#headingNodeJs{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" id="box">
+        <nav class="navbar navbar-default" id="nav">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header" style="width: 226px;">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">党政监督绩效管理系统</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a href="">
+                                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                    首页<span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                           <!-- <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">排序 <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">按时间</a></li>
+                                    <li><a href="#">按届次</a></li>
+                                    <li><a href="#">按提案人</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">按主题</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">按复函人</a></li>
+                                </ul>
+                            </li>-->
+                        </ul>
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">搜索</button>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">您好！<%=username%> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li onclick="iframeJump('/users/personinformation');");>
+                                        <a href="#">
+                                            <button class="btn btn-primary btn-xs">
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                            </button> 个人信息
+                                        </a>
+                                    </li>
+                                    <li onclick="iframeJump('/users/changeinformation');");>
+                                        <a href="#">
+                                            <button class="btn btn-primary btn-xs">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button> 修改信息
+                                        </a>
+                                    </li>
+                                    <li onclick="iframeJump('/users/changepasswordpage');">
+                                        <a href="#">
+                                            <button class="btn btn-primary btn-xs">
+                                                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                                            </button>
+                                            <span> 修改密码</span>
+                                        </a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li onclick="iframeJump('/users/personTargetpage');">
+                                        <a href="#">
+                                            <button class="btn btn-success btn-xs">
+                                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                            </button>
+                                            相关指标
+                                        </a>
+                                    </li >
+                                    <li onclick="iframeJump('/users/personScorepage');">
+                                        <a href="#">
+                                            <button class="btn btn-success btn-xs">
+                                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            </button>
+                                            你的评分
+                                        </a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">
+                                            <button class="btn btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                            </button>
+                                            <span>设置</span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a data-toggle="modal" data-target="#myModal">
+                                            <button class="btn btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                                            </button>
+                                            <span>注销</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">退出系统</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3>您确定要退出系统吗？</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">关闭</button>
+                                        <a class="btn btn-primary" style="line-height:20px;" href="/logout" >确定退出</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        <% var state=(permission=="管理员")?'block':'none';%>
+        <% var state2=(permission=="部门领导")?'block':'none';%>
+        <div class="container-fluid content" style="padding-right: 0px;padding-left: 0px;">
+            <div id="index" class="col-lg-2">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-danger" style="display: <%=state%>">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a href="#collapseOne" class="collapsed" role="button" data-parent="#accordion" data-toggle="collapse" aira-expanded="false" aira-controls="collapseOne">用 户 管 理</a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" role="tabpanel" id="collapseOne" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" onclick="iframeJump('/adduserpage');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus" aria-hidden="true"> 添加用户</span></a></li>
+                                    <li role="presentation" onclick="iframeJump('/userlistpage');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-list" aria-hidden="true"> 用户列表</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a href="#collapseTwo" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseTwo">查 询 统 计</a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" role="tabpannel" id="collapseTwo" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" onclick="iframeJump('/inquiryUser');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-user" aria-hidden="true">&nbsp;用户查询</span></a></li>
+                                    <li role="presentation" onclick="iframeJump('/inquiryTarget');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-tasks" aria-hidden="true"> 指标查询</span></a></li>
+                                    <li role="presentation" onclick="iframeJump('/inquiryScore');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-star" aria-hidden="true"> 评分查询</span></a></li>
+                                    <li role="presentation" onclick="iframeJump('/inquirySchedule');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"> 进度查询</span></a></li>
+                                    <li role="presentation" onclick="iframeJump('/dictionary');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-book" aria-hidden="true"> 数据字典</span></a></li>
+                                </ul> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-warning" style="display: <%=state%>">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a href="#collapseThree" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseThree">指 标 管 理</a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" role="tabpannel" id="collapseThree" aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" onclick="iframeJump('/addtargetpage');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus" aria-hidden="true"> 添加指标</span></a></li>
+                                    <li role="presentation" onclick="iframeJump('/targetlistpage');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"> 指标列表</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary" style="display: <%=state%>">
+                        <div class="panel-heading" role="tab" id="headingJQuery">
+                            <h4 class="panel-title">
+                                <a href="#collapseJQuery" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseJQuery">数 据 管 理</a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" role="tabpannel" id="collapseJQuery" aria-labelledby="headingJQuery">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" onclick="iframeJump('/targetDataListpage');"><a href="#"class="btn btn-default btn-xs"><span class="glyphicon glyphicon-leaf" aria-hidden="true"> 录入绩效数据</span></a></li>
+                                    <li role="presentation" onclick="iframeJump('/showDataListpage');"><a href="#"class="btn btn-default btn-xs"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"> 绩效数据列表</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-info" style="display: <%=state2%>">
+                        <div class="panel-heading" role="tab" id="headingBootstrap">
+                            <h4 class="panel-title">
+                                <a href="#collapseBootstrap" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseBootstrap">评 分 管 理</a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" role="tabpannel" id="collapseBootstrap" aria-labelledby="headingBootstrap">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" onclick="iframeJump('/scoreListpage');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-tags" aria-hidden="true"> 录入职工评分</span></a></li>
+                                    <li role="presentation" onclick="iframeJump('/showScoreListpage');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"> 职工评分记录</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-success">
+                        <div class="panel-heading" role="tab" id="headingNodeJs">
+                            <h4 class="panel-title">
+                                <a href="#collapseReport" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseNodeJs">汇 报 展 示</a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" role="tabpannel" id="collapseReport" aria-labelledby="headingNodeJs">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" onclick="iframeJump('/showTargetEcharts');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-signal" aria-hidden="true"> 绩效展示</span></a></li>
+                                    <li role="presentation" onclick="iframeJump('/showScoreEcharts');"><a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-fire" aria-hidden="true"> 评分展示</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                   <!-- <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingNodeJs">
+                            <h4 class="panel-title">
+                                <a href="#collapseNodeJs" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseNodeJs">系 统 管 理</a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" role="tabpannel" id="collapseNodeJs" aria-labelledby="headingNodeJs">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" onclick="iframeJump('/setTime');"><a href="#">阶段时间设定</a></li>
+                                    <li role="presentation">
+                                        <div class="panel">
+                                            <div class="panel-header subnav"><a href="#"><span class="glyphicon glyphicon-plus"></span> 实践</a></div>
+                                            <div class="panel-body">
+                                                <ul class="nav nav-pills">
+                                                    <li role="presentation" onclick="iframeJump('NodeJsSection/practice/chatRoom.html');"><a href="#">在线聊天室</a></li>
+                                                    <li role="presentation" onclick="iframeJump('NodeJsSection/practice/twitter.html');"><a href="#">Twitter</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>-->
+
+                </div>
+            </div>
+            <iframe src="/showDataListpage" id="frame" class="col-lg-10"></iframe>
+        </div>
+<!--底部
+<div id="footer">版权所有：毕业设计--余志诚 &copy; 2016&nbsp;&nbsp;&nbsp;&nbsp;</div> -->
+</div>
+
+<script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+<script>
+    var iframeJump=function(url){
+        //兼容360极速和IE8+
+        if(window.parent.frames['frame'].location){
+            window.parent.frames['frame'].location.href=url;
+        }else{
+            //兼容Firefox和Chrome
+            window.parent.frames['frame'].src=url;
+        }
+    }
+    $(document).ready(function(){
+        var EventUtil={
+            addHandler:function(element,type,handler){
+                if(element.addEventListener){
+                    element.addEventListener(type,handler,false);
+                }else{
+                    element.attachEvent("on"+type,handler);
+                }
+            }
+        }
+    });
+    $(function(){
+        //控制索引树上active类的添加与删除,改善用户体验
+        var $presentation=$("li[role='presentation']");
+        $presentation.on('click',function(){
+            $presentation.filter(".active").removeClass("active");
+            $(this).addClass("active");
+        })
+        //二级索引树
+        var $subnav=$('.subnav');
+        $subnav.on("click",function(){
+            $subnav.find('span').removeClass("glyphicon-minus").addClass("glyphicon-plus");
+            if($(this).next().css("display")=="block"){
+                $(this).find('span').removeClass("glyphicon-minus").addClass("glyphicon-plus");
+                $subnav.next().slideUp();
+            }else{
+                $(this).find('span').removeClass("glyphicon-plus").addClass("glyphicon-minus");
+                $subnav.next().slideUp();
+                $(this).next().slideDown();
+            }           
+        })
+    });
+</script>
+</body>
+</html>
+
+
+

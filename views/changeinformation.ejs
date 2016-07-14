@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改个人信息</title>
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <h2>修改个人信息</h2>
+    <div class="alert alert-warning" role="alert">
+        <span>修改信息时请注意：<i class="icolor">*</i>  为必填内容!</span><span id="check-block" style="color: red;">&nbsp;</span>
+    </div>
+    <div class="ibox-content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td><label>工号：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="username" class="form-control" placeholder="工号" readonly="readonly" id="username" value=<%=information.username%>>
+                </div>
+            </td>
+            <td><label>姓名：<i class="icolor">*</i></label></td>
+            <td>
+                <div>
+                    <input type="text" name="name" class="form-control" placeholder="姓名" readonly="readonly"  value=<%=information.name%>>
+                </div>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td> <label>性别：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <%
+                    var gender=(information.sex==false)?"男":"女"
+                    %>
+                    <input type="text" name="" class="form-control" placeholder="性别" readonly="readonly" value=<%=gender%>>
+                </div>
+            </td>
+            <td> <label>出生年月：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="date" name="born_date" class="form-control" placeholder="出生年月"   readonly="readonly" value=<%=information.born_date%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>民族：<i class="icolor">*</i></label></td>
+            <td>
+                <div>
+                    <input type="text" name="" class="form-control" placeholder="民族" readonly="readonly" value=<%=information.nation%>>
+                </div>
+            </td>
+            </td>
+            <td><label>政治面貌：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="" class="form-control" placeholder="政治面貌" readonly="readonly" value=<%=information.political_status%>>
+                </div>
+            </td>
+            </td>
+
+        </tr>
+        <tr>
+            <td> <label>籍贯：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="place" class="form-control" placeholder="籍贯" readonly="readonly" value=<%=information.place%>>
+                </div>
+            </td>
+            <td> <label>身份证号：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="text" name="id_card" class="form-control" placeholder="身份证"  readonly="readonly" value=<%=information.id_card%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>所属机关：<i class="icolor">*</i></label></td>
+            <td>
+                <div>
+                    <input type="text" name="" class="form-control" placeholder="所属部门" readonly="readonly" value=<%=information.department%>>
+                </div>
+            </td>
+            <td><label>用户权限：<i class="icolor">*</i></label></td>
+            <td>
+                <div>
+                    <input type="text" name="" class="form-control" placeholder="用户权限" readonly="readonly" value=<%=information.permission%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>电话号码：</label></td>
+            <td><div>
+                    <input type="text" name="tel" class="form-control" placeholder="电话号码" id="telephone" value=<%=information.tel%>>
+                </div>
+            </td>
+            <td><label>职务：</label></td>
+            <td> <div>
+                    <input type="text" name="position" class="form-control" placeholder="职务" id="position" value=<%=information.position%>>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="center">
+            <button type="button" class="btn btn-info" id="personChange">修改</button>
+            <button type="button" class="btn btn-info">取消</button>
+        </div>
+        <div class="modal fade" id="emitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style=" margin-top: 200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3> 信息修改成功！</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" style="line-height:20px;" href="/users/changeinformation" >确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="emitBtn" data-toggle="modal"  data-target="#emitModal">emit</button>
+   <script>
+            var state="0";
+            $(function(){
+                $("#personChange").click(function(){
+                    var username=$("#username").val();
+                    var tel = $("#telephone").val();
+                    var position = $("#position").val();
+                        var data = {
+                            "username":username,
+                            "tel":tel,
+                            "position":position
+                        };
+                        $.ajax({
+                            url: '/users/personchange',
+                            type: 'post',
+                            data: data,
+                            success: function(data,status){
+                                if(status == 'success'){
+                                    $("#check-block").text("修改成功！");
+                                    $('#emitBtn').trigger('click');
+                                }
+                            },
+                            error: function(data,err){
+                                $("#check-block").text("修改失败！");
+                            }
+                        });
+
+                });
+            });
+        </script>
+</div>
+</body>
+</html>

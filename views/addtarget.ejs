@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>添加指标</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <h2>添加指标</h2>
+    <div class="alert alert-warning" role="alert">
+        <span>请填写以下信息,<i class="icolor">*</i>  为必填内容!</span><span id="check-block" style="color: red;">&nbsp;</span>
+    </div>
+    <div class="ibox-content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td><label>指标号：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="targetId" class="form-control" placeholder="指标号" id="targetId">
+                </div>
+            </td>
+            <td><label>指标名称：<i class="icolor">*</i></label></td>
+            <td>
+                <div>
+                    <input type="text" name="targetName" class="form-control" placeholder="指标名称" id="targetName">
+                </div>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td> <label>指标类型：<i class="icolor">*</i></label></td>
+            <td>  <div>
+                    <select class="form-control" name="targetType" id="targetType">
+                        <option>省级指标</option>
+                        <option>市级指标</option>
+                        <option>区级指标</option>
+                        <option>单位指标</option>
+                    </select>
+                </div>
+            </td>
+            <td><label>计量单位：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="unit" class="form-control" placeholder="计量单位" id="unit">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>合格值：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="acceptValue" class="form-control" placeholder="合格值" id="acceptValue">
+                </div>
+            </td>
+            <td> <label>挑战值：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="text" name="challengeValue" class="form-control" placeholder="挑战值" id="challengeValue">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>主要责任机关：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <select class="form-control" name="department" id="mainDepartment">
+                        <option>党的机关</option>
+                        <option>人大机关</option>
+                        <option>行政机关</option>
+                        <option>政协机关</option>
+                        <option>审判机关</option>
+                        <option>检察机关</option>
+                        <option>共青团</option>
+                        <option>妇联</option>
+
+                    </select>
+                </div>
+            </td>
+            <td><label>相关责任机关：</label></td>
+            <td>
+                <div>
+                    <select class="form-control" name="department" id="relatedDepartment">
+                        <option>请 选 择 ！</option>
+                        <option>党的机关</option>
+                        <option>人大机关</option>
+                        <option>行政机关</option>
+                        <option>政协机关</option>
+                        <option>审判机关</option>
+                        <option>检察机关</option>
+                        <option>共青团</option>
+                        <option>妇联</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>规划开始时间：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="date" name="startTime" class="form-control" placeholder="规划开始时间" id="startTime">
+                </div>
+            </td>
+            <td> <label>规划结束时间：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="date" name="endTime" class="form-control" placeholder="规划结束时间" id="endTime">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="center">
+            <button type="button" class="btn btn-info" id="addTarget">添加</button>
+            <button type="button" class="btn btn-info" id="cancel">取消</button>
+        </div>
+        <div class="modal fade" id="emitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style=" margin-top: 200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">添加指标</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3> 指标添加成功！</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" style="line-height:20px;" href="/addtargetpage" >确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="emitBtn" data-toggle="modal"  data-target="#emitModal">emit</button>
+
+   </div>
+    <script>
+        var state="0";
+        $(function(){
+            $("#addTarget").click(function(){
+                var targetId = $("#targetId").val();
+                var targetName = $("#targetName").val();
+                var unit = $("#unit").val();
+                var targetType = $("#targetType option:selected").val();
+                var acceptValue = $("#acceptValue").val();
+                var challengeValue = $("#challengeValue").val();
+                var mainDepartment = $("#mainDepartment option:selected").val();
+                var relatedDepartment = $("#relatedDepartment option:selected").val();
+                var startTime = $("#startTime").val();
+                var endTime = $("#endTime").val();
+                if(targetId==''||targetName==''||unit==''||targetType==''||acceptValue==''||challengeValue==''||mainDepartment==''||startTime==''||endTime==''){
+                    $("#check-block").text("必填信息不能为空！");
+                }else if(state=="0"){
+                    $("#check-block").text("指标号已存在!");
+                }
+                else {
+                    var data = {"targetId":targetId,
+                                 "targetName":targetName,
+                                 "targetType":targetType,
+                                 "unit":unit,
+                                 "acceptValue":acceptValue,
+                                 "challengeValue":challengeValue,
+                                 "mainDepartment":mainDepartment,
+                                 "relatedDepartment":relatedDepartment,
+                                 "startTime":startTime,
+                                 "endTime":endTime
+                    };
+                    $.ajax({
+                        url: '/addtarget',
+                        type: 'post',
+                        data: data,
+                        success: function(data,status){
+                            if(status == 'success'){
+                                $("#check-block").text("指标添加成功！");
+                                $('#emitBtn').trigger('click');
+                            }
+
+                        },
+                        error: function(data,err){
+                            $("#check-block").text("指标添加失败！");
+                        }
+                    });
+                }
+            });
+        });
+       $("#targetId").blur(function(){
+            var targetId = $("#targetId").val();
+            var data = {'targetId':targetId};
+            $.ajax({
+                url:'/checktargetId',
+                type:'post',
+                data:data,
+                success:function(data,status){
+                    if(status == 'success'){
+                        $("#check-block").text("");
+                        state="1";
+                    }
+                },
+                error:function(data,err){
+                    $("#check-block").text("指标号已存在!");
+                    state="0";
+                }
+            });
+        });
+
+        $("#cancel").click(function () {
+            $("input").val('');
+        });
+    </script>
+</body>
+</html>

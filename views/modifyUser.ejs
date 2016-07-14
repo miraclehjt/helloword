@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改用户信息</title>
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <h2>修改用户信息</h2>
+    <div class="alert alert-warning" role="alert">
+        <span>修改信息时请注意：<i class="icolor">*</i>  为必填内容!</span><span id="check-block" style="color: red;">&nbsp;</span>
+    </div>
+    <div> <input type="text" name="id" class="form-control" placeholder="id"  id="id" style="display: none" value=<%=user._id%>></div>
+    <div> <input type="text" name="old_username" class="form-control" placeholder="old_username"  id="old_username" style="display: none" value=<%=user.username%>></div>
+    <div> <input type="text" name="password" class="form-control" placeholder="password"  id="password" style="display: none" value=<%=user.password%>></div>
+    <div class="ibox-content">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td><label>工号：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="username" class="form-control" placeholder="工号"  id="username" value=<%=user.username%>>
+                </div>
+            </td>
+            <td><label>姓名：<i class="icolor">*</i></label></td>
+            <td>
+                <div>
+                    <input type="text" name="name" class="form-control" placeholder="姓名" id="name" value=<%=user.name%>>
+                </div>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td> <label>性别：<i class="icolor">*</i></label></td>
+            <td> <div class="col-sm-9">
+                    <%
+                       var check_man=(user.sex==false)? "checked='checked'":"";
+                       var check_woman=(user.sex==true)? "checked='checked'":"";
+                     %>
+                    <label class="radio-inline">
+                        <input type="radio"  <%=check_man%> id="" name="sex" value=0>男</label>
+                    <label class="radio-inline">
+                        <input type="radio"  <%=check_woman%> id="" name="sex" value=1>女</label>
+                </div>
+            </td>
+            <td> <label>出生年月：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="date" name="born_date" class="form-control" placeholder="出生年月" id="born_date" value=<%=user.born_date%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>民族：<i class="icolor">*</i></label></td>
+            <td>  <div>
+                    <% var selectnation1=(user.nation=="汉族")?"selected='selected'":"";
+                       var selectnation2=(user.nation=="壮族")?"selected='selected'":"";
+                       var selectnation3=(user.nation=="回族")?"selected='selected'":"";
+                       var selectnation4=(user.nation=="藏族")?"selected='selected'":"";
+                       var selectnation5=(user.nation=="蒙古族")?"selected='selected'":"";
+                       var selectnation6=(user.nation=="维吾尔族")?"selected='selected'":"";
+                       var selectnation7=(user.nation=="其他民族")?"selected='selected'":"";
+                    %>
+                    <select class="form-control" name="nation" id="nation">
+                        <option <%=selectnation1%>>汉族</option>
+                        <option <%=selectnation2%>>壮族</option>
+                        <option <%=selectnation3%>>回族</option>
+                        <option <%=selectnation4%>>藏族</option>
+                        <option <%=selectnation5%>>蒙古族</option>
+                        <option <%=selectnation6%>>维吾尔族</option>
+                        <option <%=selectnation7%>>其他民族</option>
+                    </select>
+                </div>
+            </td>
+            <td><label>政治面貌：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <% var select1=(user.political_status=="中共党员")?"selected='selected'":"";
+                       var select2=(user.political_status=="共青团员")?"selected='selected'":"";
+                       var select3=(user.political_status=="民主党派")?"selected='selected'":"";
+                       var select4=(user.political_status=="群众")?"selected='selected'":"";
+                    %>
+                    <select class="form-control" name="political_status" id="political_status">
+                        <option <%=select1%>>中共党员</option>
+                        <option <%=select2%>>共青团员</option>
+                        <option <%=select3%>>民主党派</option>
+                        <option <%=select4%>>群众</option>
+                    </select>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td> <label>籍贯：<i class="icolor">*</i></label></td>
+            <td> <div>
+                    <input type="text" name="place" class="form-control" placeholder="籍贯" id="place"value=<%=user.place%>>
+                </div>
+            </td>
+            <td> <label>身份证号：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <input type="text" name="id_card" class="form-control" placeholder="身份证"  id="id_card" value=<%=user.id_card%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>所属部门：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <% var select1=(user.department=="党的机关")?"selected='selected'":"";
+                       var select2=(user.department=="人大机关")?"selected='selected'":"";
+                       var select3=(user.department=="行政机关")?"selected='selected'":"";
+                       var select4=(user.department=="政协机关")?"selected='selected'":"";
+                       var select5=(user.department=="审判机关")?"selected='selected'":"";
+                       var select6=(user.department=="检察机关")?"selected='selected'":"";
+                       var select7=(user.department=="共青团")?"selected='selected'":"";
+                       var select8=(user.department=="妇联")?"selected='selected'":"";
+                    %>
+                    <select class="form-control" name="department" id="department">
+                        <option <%=select1%>>党的机关</option>
+                        <option <%=select2%>>人大机关</option>
+                        <option <%=select3%>>行政机关</option>
+                        <option <%=select4%>>政协机关</option>
+                        <option <%=select5%>>审判机关</option>
+                        <option <%=select6%>>检察机关</option>
+                        <option <%=select7%>>共青团</option>
+                        <option <%=select8%>>妇联</option>
+                    </select>
+                </div>
+            </td>
+            <td><label>用户权限：<i class="icolor">*</i></label></td>
+            <td><div>
+                    <% var select1=(user.permission=="管理员")?"selected='selected'":"";
+                       var select2=(user.permission=="部门领导")?"selected='selected'":"";
+                       var select3=(user.permission=="普通职工")?"selected='selected'":"";
+                    %>
+                    <select class="form-control" name="permission" id="permission">
+                        <option <%=select1%>>管理员</option>
+                        <option <%=select2%>>部门领导</option>
+                        <option <%=select3%>>普通职工</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>电话号码：</label></td>
+            <td><div>
+                    <input type="text" name="tel" class="form-control" placeholder="电话号码" id="tel"value=<%=user.tel%>>
+                </div>
+            </td>
+            <td><label>职务：</label></td>
+            <td> <div>
+                    <input type="text" name="position" class="form-control" placeholder="职务" id="position" value=<%=user.position%>>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="center">
+            <button type="button" class="btn btn-info" id="save">修改</button>
+            <button type="button" class="btn btn-info" id="cancel">取消</button>
+        </div>
+        <div class="modal fade" id="emitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style=" margin-top: 200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">修改用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3> 用户修改成功！</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" style="line-height:20px;" href="/userlistpage" >确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="emitBtn" data-toggle="modal"  data-target="#emitModal">emit</button>
+</div>
+ <script>
+     var state="0";
+        $(function(){
+            $("#save").click(function(){
+                var id=$("#id").val();
+                var old_username=$("#old_username").val();
+                var username = $("#username").val();
+                var password=$("#password").val();
+                var name = $("#name").val();
+                var sex= $("input[name='sex']:checked").val();
+                var born_date = $("#born_date").val();
+                var nation = $("#nation option:selected").val();
+                var political_status = $("#political_status option:selected").val();
+                var place = $("#place").val();
+                var id_card = $("#id_card").val();
+                var department = $("#department option:selected").val();
+                var permission = $("#permission option:selected").val();
+                var tel = $("#tel").val();
+                var position = $("#position").val();
+                var check=$("#check-block").val();
+                if(username==old_username){//当修改的username与原来的username相同时改变状态
+                    state="1";
+                }
+                if(username==''||name==''||sex==''||born_date==''||nation==''||political_status==''||place==''||id_card==''||department==''||permission==''){
+                    $("#check-block").text("必填信息不能为空！");
+                }
+                else if(id_card.length!=18){
+                    $("#check-block").text("请输入正确的身份证号码");
+                }else if(state=="0"){
+                    $("#check-block").text("工号已存在！");
+                }
+                else {
+                    var data = {
+                        "_id":id,
+                        "username":username,
+                        "password":password,
+                        "name":name,
+                        "sex":sex,
+                        "born_date":born_date,
+                        "nation":nation,
+                        "political_status":political_status,
+                        "place":place,
+                        "id_card":id_card,
+                        "department":department,
+                        "permission":permission,
+                        "tel":tel,
+                        "position":position
+                    };
+                    $.ajax({
+                        url: '/modifyUser',
+                        type: 'post',
+                        data: data,
+                        success: function(data,status){
+                            if(status == 'success'){
+                                $("#check-block").text("用户修改成功！");
+                                $('#emitBtn').trigger('click');
+                            }
+
+                        },
+                        error: function(data,err){
+                            $("#check-block").text("用户修改失败！");
+                        }
+                    });
+                }
+            });
+        });
+        $("#username").blur(function(){
+            var username = $("#username").val();
+            var old_username = $("#old_username").val();
+            var data = {'username':username};
+            if(username==old_username){
+                state="1";
+                $("#check-block").text("");
+            }
+            if(username!=old_username){
+                $.ajax({
+                    url:'/checkusername',
+                    type:'post',
+                    data:data,
+                    success:function(data,status){
+                        if(status == 'success'){
+                            $("#check-block").text("");
+                            state="1";
+                        }
+                    },
+                    error:function(data,err){
+                        $("#check-block").text("工号已存在！");
+                        state="0";
+                    }
+                });
+            }
+
+        });
+        $("#id_card").blur(function(){
+            var id_card = $("#id_card").val();
+            if(id_card.length!=18){
+                $("#check-block").text("请输入正确的身份证号码");
+            }
+            else{
+                $("#check-block").text(" ");
+            }
+        });
+
+     $("#cancel").click(function () {
+         $("input").val('');
+     });
+
+    </script>
+</body>
+</html>

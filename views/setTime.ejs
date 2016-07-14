@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>阶段时间设定</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <h2>阶段时间设定</h2>
+    <div class="alert alert-warning" role="alert">
+        <span>请设置阶段时间！</span>
+    </div>
+    <div class="ibox-content">
+    <table class="table table-active">
+        <thead>
+
+        </thead>
+        <tbody>
+        <tr>
+            <td><label>生成指标阶段：</label></td>
+            <td>
+                <button  class="btn btn-primary ">生成指标开始</button>
+            </td>
+            <td>
+                <button  class="btn btn-primary ">生成指标结束</button>
+            </td>
+        </tr>
+        <tr>
+            <td><label>录入绩效数据阶段：</label></td>
+            <td>
+                <button  class="btn btn-danger ">录入绩效开始</button>
+            </td>
+            <td>
+                <button  class="btn btn-danger ">录入绩效结束</button>
+            </td>
+        </tr>
+        <tr>
+            <td><label>录入评分阶段：</label></td>
+            <td>
+                <button  class="btn btn-success ">录入评分开始</button>
+            </td>
+            <td>
+                <button  class="btn btn-success ">录入评分结束</button>
+            </td>
+        </tr>
+        <tr>
+            <td><label>状态重置阶段：</label></td>
+            <td>
+                <a href="/resetTargetState"  class="btn btn-info ">重置指标状态</a>
+            </td>
+            <td>
+                <a href="/resetScoreState" class="btn btn-info ">重置评分状态</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="modal fade" id="emitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style=" margin-top: 200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3> 用户添加成功！</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" style="line-height:20px;" href="/adduserpage" >确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="emitBtn" data-toggle="modal"  data-target="#emitModal">emit</button>
+
+   </div>
+    <script>
+        $(function(){
+            $("#add").click(function(){
+                    var data = {
+                    };
+                    $.ajax({
+                        url: '/adduser',
+                        type: 'post',
+                        data: data,
+                        success: function(data,status){
+                            if(status == 'success'){
+                                $("#check-block").text("用户添加成功！");
+                                $('#emitBtn').trigger('click');
+                            }
+
+                        },
+                        error: function(data,err){
+                            $("#check-block").text("用户添加失败！");
+                        }
+                    });
+
+            });
+        });
+        $("#username").blur(function(){
+            var username = $("#username").val();
+            var data = {'username':username};
+            $.ajax({
+                url:'/checkusername',
+                type:'post',
+                data:data,
+                success:function(data,status){
+                    if(status == 'success'){
+                        $("#check-block").text("");
+                        state="1";
+                    }
+                },
+                error:function(data,err){
+                    $("#check-block").text("工号已存在！");
+                     state="0";
+                }
+            });
+        });
+        $("#id_card").blur(function(){
+            var id_card = $("#id_card").val();
+            if(id_card.length!=18){
+                $("#check-block").text("请输入正确的身份证号码");
+            }
+            else{
+                $("#check-block").text(" ");
+            }
+        });
+    </script>
+</body>
+</html>

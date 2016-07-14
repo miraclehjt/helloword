@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>个人信息</title>
+    <link rel='stylesheet' href='/stylesheets/systemmanage.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+</head>
+<body>
+    <script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <h2>个人信息</h2>
+
+    <div class="ibox-content">
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td><label>工号：</label></td>
+            <td> <div>
+                    <input type="text" name="" class="form-control" placeholder="工号" readonly="readonly" value=<%=personinfo.username%>>
+                 </div>
+            </td>
+            <td><label>姓名：</label></td>
+            <td>
+                <div>
+                    <input type="text" name="" class="form-control" placeholder="姓名" readonly="readonly" value=<%=personinfo.name%>>
+                </div>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td> <label>性别：</label></td>
+            <td> <div>
+                    <%
+                        var gender=(personinfo.sex==false)?"男":"女"
+                    %>
+                    <input type="text" name="" class="form-control" placeholder="性别" readonly="readonly" value=<%=gender%>>
+                </div>
+            </td>
+            <td> <label>出生年月：</label></td>
+            <td><div>
+                    <input type="text" name="" class="form-control" placeholder="出生年月" readonly="readonly" value=<%=personinfo.born_date%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>民族：</label></td>
+            <td>
+                <div>
+                    <input type="text" name="" class="form-control" placeholder="民族" readonly="readonly" value=<%=personinfo.nation%>>
+                </div>
+            </td>
+            <td><label>政治面貌：</label></td>
+            <td> <div>
+                    <input type="text" name="" class="form-control" placeholder="政治面貌" readonly="readonly" value=<%=personinfo.political_status%>>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td> <label>籍贯：</label></td>
+            <td> <div>
+                    <input type="text" name="" class="form-control" placeholder="籍贯" readonly="readonly" value=<%=personinfo.place%>>
+                </div>
+            </td>
+            <td> <label>身份证号：</label></td>
+            <td><div>
+                    <input type="text" name="" class="form-control" placeholder="身份证" readonly="readonly" value=<%=personinfo.id_card%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>所属部门：</label></td>
+            <td>
+                <div>
+                    <input type="text" name="" class="form-control" placeholder="所属部门" readonly="readonly" value=<%=personinfo.department%>>
+                </div>
+            </td>
+            <td><label>用户权限：</label></td>
+            <td>
+                <div>
+                    <input type="text" name="" class="form-control" placeholder="用户权限" readonly="readonly" value=<%=personinfo.permission%>>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td> <label>电话号码：</label></td>
+            <td><div>
+                    <input type="text" name="" class="form-control" placeholder="电话号码" readonly="readonly" value=<%=personinfo.tel%>>
+                </div>
+            </td>
+            <td><label>职务：</label></td>
+            <td>
+                <div>
+                    <input type="text" name="" class="form-control" placeholder="职务" readonly="readonly" value=<%=personinfo.position%>>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
